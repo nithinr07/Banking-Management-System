@@ -1,11 +1,11 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<sys/types.h>
-#include<sys/socket.h>
-#include<netinet/in.h>
-#include<arpa/inet.h>
-#include<unistd.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdbool.h>
 #include "data_structures.h"
 #include "constants.h"
 #include "client.h"
@@ -400,13 +400,14 @@ void deleteAccount(int sd){
 	write(sd,&type,sizeof(int));
 
 	write(1,"User ID : ",sizeof("User ID : "));
+
 	scanf("%d",&userID);
 	write(sd,&userID,sizeof(int));
 	
 	read(sd,&result,sizeof(result)); //from the server
 
 	if(!result){
-		write(1,"Error deleting the account ,please re-check the User ID!!\n\n",sizeof("Error deleting the account ,please re-check the User ID!!\n\n"));
+		write(1,"Error deleting the account, please re-check the User ID!!\n\n",sizeof("Error deleting the account, please re-check the User ID!!\n\n"));
 	}
 	else{
 		write(1,"Succesfully deleted the account!!\n\n",sizeof("Succesfully deleted the account!!\n\n"));
