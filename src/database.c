@@ -353,9 +353,10 @@ bool depositMoney(int accType,int ID,float amt){
 		
 		if(!strcmp(currUser.status,"ACTIVE")){
 			currUser.balance+=amt;
-            getchar();
+            // getchar();
 			lseek(fd,sizeof(jointUser)*(-1),SEEK_CUR);
 			write(fd,&currUser,sizeof(jointUser));
+			getchar();
 			result=true;
 		}
 		else	result=false;

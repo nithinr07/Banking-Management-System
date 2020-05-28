@@ -13,105 +13,121 @@
 int option,currUserID;
 
 void chooseOption(int sd){
-	write(1,"1 : Normal-User Login\n",sizeof("1 : Normal-User Login\n"));
-	write(1,"2 : Joint Account-User Login\n",sizeof("2 : Joint Account-User Login\n"));
-	write(1,"3 : Admin Login\n",sizeof("3 : Admin Login\n"));
-	
-	write(1,"Choose an option : ",sizeof("Choose an option : "));
-	scanf("%d",&option);
-	printf("Option : %d\n",option);
-	//option=option-2608;
+	int valid = 1;
+	while(valid) {
+		write(1,"1 : Normal-User Login\n",sizeof("1 : Normal-User Login\n"));
+		write(1,"2 : Joint Account-User Login\n",sizeof("2 : Joint Account-User Login\n"));
+		write(1,"3 : Admin Login\n",sizeof("3 : Admin Login\n"));
+		
+		write(1,"Choose an option : ",sizeof("Choose an option : "));
+		scanf("%d",&option);
+		printf("Option : %d\n",option);
 
-	switch(option){
-		case 1 :
-			attemptNormalUserLogin(sd);
-			break;
-		case 2 :
-			attemptJointUserLogin(sd);
-			break;
-		case 3 :
-			attemptAdminLogin(sd);
-			break;
-		default :
-			write(1,"Invalid option!!\n\n",sizeof("Invalid option!!\n\n"));
-			chooseOption(sd);
-			break;
+		switch(option){
+			case 1 :
+				attemptNormalUserLogin(sd);
+				valid = 0;
+				break;
+			case 2 :
+				attemptJointUserLogin(sd);
+				valid = 0;
+				break;
+			case 3 :
+				attemptAdminLogin(sd);
+				valid = 0;
+				break;
+			default :
+				write(1,"Invalid option!!\n\n",sizeof("Invalid option!!\n\n"));
+				// chooseOption(sd);
+				break;
+		}
 	}
 	return;
 }
 
 void showMenu(int sd){
-	int select;
-	if(option==1 || option==2){
-		write(1,"1 : Deposit\n",sizeof("1 : Deposit\n"));
-		write(1,"2 : Withdraw\n",sizeof("2 : Withdraw\n"));
-		write(1,"3 : Balance Enquiry\n",sizeof("3 : Balance Enquiry\n"));
-		write(1,"4 : Password Change\n",sizeof("4 : Password Change\n"));
-		write(1,"5 : View Details\n",sizeof("5 : View Details\n"));
-		write(1,"6 : Exit\n",sizeof("6 : Exit\n"));
-	
-		write(1,"Choose an option : ",sizeof("Choose an option : "));
-		scanf("%d",&select);
-		printf("Option : %d\n",select);
+	int select; int valid = 1;
+	while(valid) {
+		if(option==1 || option==2){
+			write(1,"1 : Deposit\n",sizeof("1 : Deposit\n"));
+			write(1,"2 : Withdraw\n",sizeof("2 : Withdraw\n"));
+			write(1,"3 : Balance Enquiry\n",sizeof("3 : Balance Enquiry\n"));
+			write(1,"4 : Password Change\n",sizeof("4 : Password Change\n"));
+			write(1,"5 : View Details\n",sizeof("5 : View Details\n"));
+			write(1,"6 : Exit\n",sizeof("6 : Exit\n"));
 		
-		switch(select){
-		case 1 :
-			deposit(sd);
-			break;
-		case 2 :
-			withdraw(sd);
-			break;
-		case 3 :
-			balanceEnquiry(sd);
-			break;
-		case 4 :
-			changePassword(sd);
-			break;
-		case 5 :
-			viewDetails(sd);
-			break;
-		case 6 :
-			write(sd,&select,sizeof(int));
-			write(1,"Thank you\n",sizeof("Thank you\n"));
-			exit(0);
-		default :
-			write(1,"Invalid option!!\n\n",sizeof("Invalid option!!\n\n"));
-			showMenu(sd);
-			break;
+			write(1,"Choose an option : ",sizeof("Choose an option : "));
+			scanf("%d",&select);
+			printf("Option : %d\n",select);
+			
+			switch(select){
+			case 1 :
+				deposit(sd);
+				valid = 0;
+				break;
+			case 2 :
+				withdraw(sd);
+				valid = 0;
+				break;
+			case 3 :
+				balanceEnquiry(sd);
+				valid = 0;
+				break;
+			case 4 :
+				changePassword(sd);
+				valid = 0;
+				break;
+			case 5 :
+				viewDetails(sd);
+				valid = 0;
+				break;
+			case 6 :
+				write(sd,&select,sizeof(int));
+				write(1,"Thank you\n",sizeof("Thank you\n"));
+				exit(0);
+			default :
+				write(1,"Invalid option!!\n\n",sizeof("Invalid option!!\n\n"));
+				// showMenu(sd);
+				break;
+			}
 		}
-	}
-	else if(option==3){
-		write(1,"1 : Add Account\n",sizeof("1 : Add Account\n"));
-		write(1,"2 : Delete Account\n",sizeof("2 : Delete Account\n"));
-		write(1,"3 : Modify Account\n",sizeof("3 : Modify Account\n"));
-		write(1,"4 : Search Account\n",sizeof("4 : Search Account\n"));
-		write(1,"5 : Exit\n",sizeof("6 : Exit\n"));
+		else if(option==3){
+			write(1,"1 : Add Account\n",sizeof("1 : Add Account\n"));
+			write(1,"2 : Delete Account\n",sizeof("2 : Delete Account\n"));
+			write(1,"3 : Modify Account\n",sizeof("3 : Modify Account\n"));
+			write(1,"4 : Search Account\n",sizeof("4 : Search Account\n"));
+			write(1,"5 : Exit\n",sizeof("6 : Exit\n"));
 
-		write(1,"Choose an option : ",sizeof("Choose an option : "));
-		scanf("%d",&select);
-		printf("Option : %d\n",select);
-		
-		switch(select){
-		case 1 :
-			addAccount(sd);
-			break;
-		case 2 :
-			deleteAccount(sd);
-			break;
-		case 3 :
-			modifyAccount(sd);
-			break;
-		case 4 :
-			searchAccount(sd);
-			break;
-		case 5 :
-			write(sd,&select,sizeof(int));
-			write(1,"Thank you\n",sizeof("Thank you\n"));
-			exit(0);
-		default :
-			write(1,"Invalid option!!\n\n",sizeof("Invalid option!!\n\n"));
-			showMenu(sd);
-			break;
+			write(1,"Choose an option : ",sizeof("Choose an option : "));
+			scanf("%d",&select);
+			printf("Option : %d\n",select);
+			
+			switch(select){
+			case 1 :
+				addAccount(sd);
+				valid = 0;
+				break;
+			case 2 :
+				deleteAccount(sd);
+				valid = 0;
+				break;
+			case 3 :
+				modifyAccount(sd);
+				valid = 0;
+				break;
+			case 4 :
+				searchAccount(sd);
+				valid = 0;
+				break;
+			case 5 :
+				write(sd,&select,sizeof(int));
+				write(1,"Thank you\n",sizeof("Thank you\n"));
+				exit(0);
+			default :
+				write(1,"Invalid option!!\n\n",sizeof("Invalid option!!\n\n"));
+				// showMenu(sd);
+				break;
+			}
 		}
 	}
 }
