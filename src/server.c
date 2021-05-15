@@ -273,14 +273,6 @@ int main(){
 		nsd=accept(sd,(struct sockaddr *)&client,&clientLen);
 
 		write(1,"Connected to the client.....\n",sizeof("Connected to the client.....\n"));
-		// if(!fork()){
-		// 	close(sd);	//child doesn't require sd
-		// 	serverTask(nsd);
-		// 	exit(0);
-		// }
-		// else{
-		// 	close(nsd);	//child has nsd and parent doesn't require it
-		// }	
 		if(pthread_create(&threads,NULL,connection_handler,(void*) &nsd)<0){
 			perror("could not create thread");
 			return 1;
